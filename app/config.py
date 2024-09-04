@@ -4,7 +4,8 @@ import json
 # with open('/etc/config.json') as config_file:
 # 	config = json.load(config_file)
 config = {
-    'SQLALCHEMY_DATABASE_URI_SQLITE': 'sqlite:///site.db'
+    'SQLALCHEMY_DATABASE_URI_SQLITE': 'sqlite:///site.db',
+    'SECRET_KEY': '1234567890'
 }
 
 class Config():

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}User Page{% endblock title %}
+{% block content %}
+<main class="container">
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <h1>Welcome, {{ user.first_name }} {{ user.last_name }}</h1>
+            <hr>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-10 offset-md-1">
+            {% if user_reports %}
+                <h2>Downloadable Files:</h2>
+                <table class="table mt-3">
+                    <thead>
+                        <tr>
+                            <th>Report Type</th>
+                            <th>Number of Rows</th>
+                            <th>Time Created</th>
+                            <th>Range Start</th>
+                            <th>Range End</th>
+                            <th>Download</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            {% else %}
+                <p>No reports available.</p>
+            {% endif %}
+        </div>
+    </div>
+</main>
+
+{% endblock %}

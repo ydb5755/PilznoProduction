@@ -12,17 +12,18 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a href="{{url_for('main.homepage')}}" style="text-decoration: none; margin-right: 10px;"></a>
-        <a href="#" style="text-decoration: none;"><span class="navbar-brand">User Page</span></a>
+        <a href="{{url_for('main.homepage')}}" style="text-decoration: none; margin-right: 10px;"><p>Pilzno</p></a>
+        {% if current_user.is_authenticated %}
+        <a href="{{url_for('users.user_page', user_id=current_user.id)}}" style="text-decoration: none;"><span class="navbar-brand">User Page</span></a>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Logout</a>
+                <a class="nav-item nav-link active" href="{{url_for('users.logout')}}">Logout</a>
           </div>
-          <!-- <div class="navbar-nav ms-auto" id="navbar-user-details">
-              <p>Account Name: {{current_user.first_name}} {{current_user.last_name}}</p>
-              <p>User Type: {{current_user.user_type}}</p>
-          </div> -->
         </div>
+        {% else %}
+        <a href="{{url_for('users.login')}}" style="text-decoration: none;"><span class="navbar-brand">Login</span></a>
+        <a href="{{url_for('users.register_user')}}" style="text-decoration: none;"><span class="navbar-brand">Register</span></a>
+        {% endif %}
     </nav>
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
