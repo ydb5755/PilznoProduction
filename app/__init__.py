@@ -44,14 +44,14 @@ def create_app():
 
     from app.users import users
     from app.main import main
-    # from app.reports import reports
-    # from app.plan_management import plan_management
+    from app.campaigns import campaigns
+    from app.admin import admin
     # from app.agent_reports import agent_reports
     # from app.status_reports import status_reports
     app.register_blueprint(users)
     app.register_blueprint(main)
-    # app.register_blueprint(reports)
-    # app.register_blueprint(plan_management)
+    app.register_blueprint(campaigns)
+    app.register_blueprint(admin)
     # app.register_blueprint(agent_reports)
     # app.register_blueprint(status_reports)
     
