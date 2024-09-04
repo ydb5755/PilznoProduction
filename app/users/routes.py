@@ -50,15 +50,20 @@ def logout():
 def register_user():
     form = RegisterUserForm()
     if form.validate_on_submit():
-        user = User(
-            first_name=form.first_name.data,
-            last_name=form.last_name.data,
-            email=form.email.data,
-            password=generate_password_hash(form.password.data),
-            user_type="User",
-        )
-        db.session.add(user)
-        db.session.commit()
-        flash('Succesfully Registered!')
-        return redirect(url_for('main.homepage'))
+        check_user = User.query.filter_by(email=form.email.data).first()
+        if check_user:
+            flash('That email is already in use, try logging in or resetting your password')
+        else:
+            user = User(
+                first_name=form.first_name.data,
+                last_name=form.last_name.data,
+                email=form.email.data,
+                password=generate_password_hash(form.password.data),
+                user_type="User",
+            )
+            db.session.add(user)
+            db.session.commit()
+            login_user(user)
+            flash('Succesfully Registered!')
+            return redirect(url_for('main.homepage'))
     return render_template('register_user.html', form=form)
