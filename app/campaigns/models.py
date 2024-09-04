@@ -11,6 +11,4 @@ class Campaign(db.Model):
     __tablename__ = 'campaign'
     id         = Column('id', INTEGER(), primary_key=True)
     title = Column('title', TEXT(), nullable=False)
-    email      = Column('email', TEXT(), nullable=False, unique=True)
-    password   = Column('password', TEXT(), nullable=False)
-    user_type  = Column('user_type', TEXT(), nullable=False)
+    #ambassadors 
