@@ -32,10 +32,15 @@ def create_app():
         app.wsgi_app, x_for=1, x_proto=1
     )
     
-    from app.users.models import User
+    import app.users.models as user_models
+    import app.campaigns.models as campaign_models
+    import app.main.models as main_models
+    
+
+
     @login_manager.user_loader
     def load_user(user_id):
-        user = User.query.get(user_id)
+        user = user_models.User.query.get(user_id)
         if user:
             return user
         else:
