@@ -11,5 +11,5 @@ class Donation(db.Model):
     id            = Column('id', INTEGER(), primary_key=True, autoincrement=True)
     currency_type = Column('currency_type', TEXT(), nullable=False)
     amount        = Column('amount', INTEGER(), nullable=False)
-    campaign      = db.relationship('campaign', backref='donation', lazy='dynamic')
-    user          = db.relationship('user', backref='donation', lazy='dynamic')
+    campaign      = db.relationship('Campaign', backref='donation', lazy='dynamic')
+    user          = db.relationship('User', backref='donation', lazy='dynamic')
