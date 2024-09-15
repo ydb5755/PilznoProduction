@@ -11,5 +11,8 @@ class Campaign(db.Model):
     __tablename__ = 'campaign'
     id         = Column('id', INTEGER(), primary_key=True)
     title = Column('title', TEXT(), nullable=False)
-    donation_id = Column(INTEGER, ForeignKey('donation.id'))
-    #ambassadors 
+    donations = db.relationship('Donation', backref='campaign', lazy='dynamic')
+
+    def __repr__(self) -> str:
+        return f"{self.id} - {self.title}"
+    # donation_id = Column(INTEGER, ForeignKey('donation.id'))

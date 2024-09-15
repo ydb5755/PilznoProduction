@@ -1,6 +1,8 @@
 from app import db
 from app.users import users
 from app.users.models import User
+from app.campaigns.models import Campaign
+from app.main.models import Donation
 from app.users.forms import LoginForm, RegisterUserForm#, RequestResetForm, ResetPasswordForm, EditUserForm, AddUserForm
 from flask import render_template, redirect, url_for, flash, request
 from flask_login import login_required, login_user, current_user, logout_user
@@ -67,3 +69,16 @@ def register_user():
             flash('Succesfully Registered!')
             return redirect(url_for('main.homepage'))
     return render_template('register_user.html', form=form)
+
+@users.route('/test')
+def testing_route():
+    user     = User.query.filter_by(id=1).first()
+    donation = Donation.query.filter_by(id=1).first()
+    campaign = Campaign.query.filter_by(id=1).first()
+
+    print(campaign)
+
+    return render_template('test.html', 
+                           user=user,
+                           donation=donation,
+                           campaign=campaign)

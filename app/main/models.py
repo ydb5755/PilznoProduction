@@ -11,5 +11,11 @@ class Donation(db.Model):
     id            = Column('id', INTEGER(), primary_key=True, autoincrement=True)
     currency_type = Column('currency_type', TEXT(), nullable=False)
     amount        = Column('amount', INTEGER(), nullable=False)
-    campaign      = db.relationship('Campaign', backref='donation', lazy='dynamic')
-    user          = db.relationship('User', backref='donation', lazy='dynamic')
+    
+    user_id = Column(INTEGER, ForeignKey('user.id'))
+    campaign_id = Column(INTEGER, ForeignKey('campaign.id'))
+    
+    def __repr__(self) -> str:
+        return f"{self.id} - {self.currency_type} - {self.amount}"
+    # campaign      = db.relationship('Campaign', backref='donation', lazy='dynamic')
+    # user          = db.relationship('User', backref='donation', lazy='dynamic')

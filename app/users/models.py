@@ -14,7 +14,13 @@ class User(db.Model, UserMixin):
     email      = Column('email', TEXT(), nullable=False, unique=True)
     password   = Column('password', TEXT(), nullable=False)
     user_type  = Column('user_type', TEXT(), nullable=False)
-    donation_id = Column(INTEGER, ForeignKey('donation.id'))
+    donations = db.relationship('Donation', backref='user', lazy='dynamic')
+
+
+    
+    def __repr__(self) -> str:
+        return f"{self.id} - {self.first_name} - {self.last_name}"
+    # donation_id = Column(INTEGER, ForeignKey('donation.id'))
     
     def get_reset_token(self, expiration=600):
         reset_token = jwt.encode(
