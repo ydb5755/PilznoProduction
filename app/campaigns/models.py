@@ -6,12 +6,20 @@ import jwt
 from datetime import datetime, timezone, timedelta
 
 
+class AmbassadorMap(db.Model):
+    __tablename__ = 'ambassador_map'
+    id            = Column('id', INTEGER(), primary_key=True)
+    campaign_id   = Column('campaign_id', INTEGER(), nullable=False)
+    user_id       = Column('user_id', INTEGER(), nullable=False)
+
+
 
 class Campaign(db.Model):
     __tablename__ = 'campaign'
-    id         = Column('id', INTEGER(), primary_key=True)
-    title = Column('title', TEXT(), nullable=False)
-    donations = db.relationship('Donation', backref='campaign', lazy='dynamic')
+    id            = Column('id', INTEGER(), primary_key=True)
+    title         = Column('title', TEXT(), nullable=False)
+
+    # donations = db.relationship('Donation', backref='campaign', lazy='dynamic')
 
     def __repr__(self) -> str:
         return f"{self.id} - {self.title}"

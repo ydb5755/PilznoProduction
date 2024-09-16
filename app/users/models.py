@@ -14,7 +14,8 @@ class User(db.Model, UserMixin):
     email      = Column('email', TEXT(), nullable=False, unique=True)
     password   = Column('password', TEXT(), nullable=False)
     user_type  = Column('user_type', TEXT(), nullable=False)
-    donations = db.relationship('Donation', backref='user', lazy='dynamic')
+    
+    # donations = db.relationship('Donation', backref='user', lazy='dynamic')
 
 
     

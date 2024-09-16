@@ -11,9 +11,11 @@ class Donation(db.Model):
     id            = Column('id', INTEGER(), primary_key=True, autoincrement=True)
     currency_type = Column('currency_type', TEXT(), nullable=False)
     amount        = Column('amount', INTEGER(), nullable=False)
+    user_id       = Column('user_id', INTEGER(), nullable=False)
+    campaign_id   = Column('campaign_id', INTEGER(), nullable=False)
     
-    user_id = Column(INTEGER, ForeignKey('user.id'))
-    campaign_id = Column(INTEGER, ForeignKey('campaign.id'))
+    # user_id = Column(INTEGER, ForeignKey('user.id'))
+    # campaign_id = Column(INTEGER, ForeignKey('campaign.id'))
     
     def __repr__(self) -> str:
         return f"{self.id} - {self.currency_type} - {self.amount}"
