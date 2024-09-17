@@ -18,6 +18,7 @@ class Campaign(db.Model):
     __tablename__ = 'campaign'
     id            = Column('id', INTEGER(), primary_key=True)
     title         = Column('title', TEXT(), nullable=False)
+    active        = Column('active', Boolean(), nullable=False, default=True)
 
     # donations = db.relationship('Donation', backref='campaign', lazy='dynamic')
 
