@@ -50,15 +50,16 @@ def create_app():
     from app.users import users
     from app.main import main
     from app.campaigns import campaigns
+    from app.campaigns.campaign_api import campaign_api
     from app.admin import admin
-    # from app.agent_reports import agent_reports
-    # from app.status_reports import status_reports
+    
+    campaigns.register_blueprint(campaign_api)
+
     app.register_blueprint(users)
     app.register_blueprint(main)
     app.register_blueprint(campaigns)
     app.register_blueprint(admin)
-    # app.register_blueprint(agent_reports)
-    # app.register_blueprint(status_reports)
+    
     
     @app.route('/')
     def reroute_base_url():
