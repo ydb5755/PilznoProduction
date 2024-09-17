@@ -17,7 +17,7 @@ import os
 @login_required
 def user_page(user_id):
     if not int(current_user.id) == int(user_id):
-        return redirect(url_for('main.dashboard'))
+        return redirect(url_for('main.homepage'))
     user = User.query.filter_by(id=user_id).first()
     return render_template('user_page.html',
                            user=user)
@@ -27,7 +27,7 @@ def user_page(user_id):
 @users.route('/login', methods=('GET', 'POST'))
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.dashboard'))
+        return redirect(url_for('main.homepage'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
