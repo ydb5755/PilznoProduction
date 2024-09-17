@@ -7,6 +7,7 @@ import time
 import json
 from werkzeug.security import generate_password_hash
 import random
+
 def engineer():
     engine = create_engine('sqlite:////home/yisroel2/Desktop/Pilzno/instance/site.db')
     # engine = create_engine('sqlite:///C:/Users/Lenovo/Desktop/Pilzno/instance/site.db')
@@ -14,7 +15,33 @@ def engineer():
     metadata_obj.reflect(bind=engine)
     return engine, metadata_obj
 
-
+def check_db():
+    engine, metadata_obj = engineer()
+    user_table = Table("user", metadata_obj, autoload_with=engine)
+    donation_table = Table("donation", metadata_obj, autoload_with=engine)
+    campaign_table = Table("campaign", metadata_obj, autoload_with=engine)
+    with engine.connect() as conn:
+        print('USERS')
+        users = conn.execute(select(user_table)).all()
+        if users:
+            for user in users:
+                print(user.first_name)
+        else:
+            print('no users')
+        print("DONATIONS")
+        donations = conn.execute(select(donation_table)).all()
+        if donations:
+            for donation in donations:
+                print(donation.id)
+        else:
+            print('no donations')
+        campaigns = conn.execute(select(campaign_table)).all()
+        print('CAMPAIGNS')
+        if campaigns:
+            for campaign in campaigns:
+                print(campaign.title)
+        else:
+            print('no campaigns')
 
 def insert_users():
     users = [
@@ -26,7 +53,7 @@ def insert_users():
         ['Yaakov', 'Frager', 'yaakov@frager.com', generate_password_hash('12'), 'User'],
         ['Michael', 'Oshman', 'michael@oshman.com', generate_password_hash('12'), 'User'],
         ['Shalom', 'Goldberg', 'shalom@goldberg.com', generate_password_hash('12'), 'User'],
-        ['Daniel', 'Caller', 'daniel@caller.com', generate_password_hash('12', 'User')],
+        ['Daniel', 'Caller', 'daniel@caller.com', generate_password_hash('12'), 'User'],
 
     ]
     engine, metadata_obj = engineer()
@@ -52,10 +79,10 @@ def insert_donations():
     with engine.connect() as conn:
         for _ in range(100):
             conn.execute(donation_table.insert().values(
-                currency_type = currency_types[random.randint(1,2)],
+                currency_type = currency_types[random.randint(0,1)],
                 amount = random.randint(1,200),
-                campaign_id=1,
-                user_id=1
+                campaign_id=random.randint(1,4),
+                user_id=random.randint(1,9)
             ))
         conn.commit()
 
@@ -64,9 +91,13 @@ def insert_campaigns():
     campaign_table = Table("campaign", metadata_obj, autoload_with=engine)
 
     campaign_titles = ['general campaign', 'yomim noraim 2024', 'pesach kibbudim 2024', 'RH kibbudim 2024']
+    is_active = [True, False]
     with engine.connect() as conn:
         for title in campaign_titles:
-            conn.execute(campaign_table.insert().values(title=title))
+            conn.execute(campaign_table.insert().values(
+                title=title,
+                active=is_active[random.randint(0,1)]
+                ))
         conn.commit()
 
 def test_selections():
@@ -101,4 +132,5 @@ def insert_all():
     insert_donations()
 
 if __name__ == '__main__':
-    test_selections()
+    delete_all()
+    insert_all()
