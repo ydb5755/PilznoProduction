@@ -9,8 +9,8 @@ from werkzeug.security import generate_password_hash
 import random
 
 def engineer():
-    engine = create_engine('sqlite:////home/yisroel2/Desktop/Pilzno/instance/site.db')
-    # engine = create_engine('sqlite:///C:/Users/Lenovo/Desktop/Pilzno/instance/site.db')
+    # engine = create_engine('sqlite:////home/yisroel2/Desktop/Pilzno/instance/site.db')
+    engine = create_engine('sqlite:///C:/Users/Lenovo/Desktop/Pilzno/instance/site.db')
     metadata_obj = MetaData()
     metadata_obj.reflect(bind=engine)
     return engine, metadata_obj
