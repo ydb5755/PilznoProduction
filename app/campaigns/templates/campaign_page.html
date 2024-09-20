@@ -1,5 +1,35 @@
 {% extends 'base.html' %}
 {% block title %}{{campaign.title}}{% endblock title %}
 {% block content %}
-{{campaign.title}}
+<main class="container-lg mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="text-center">{{campaign.title}}</h2>
+                    
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Amount</th>
+                                <th>User</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for campaign_donation in campaign.get_donations() %}
+                            <tr>
+                                <td>{{campaign_donation.id}}</td>
+                                <td>{{campaign_donation.amount}}</td>
+                                <td>{{campaign_donation.get_user()}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
 {% endblock content %}
