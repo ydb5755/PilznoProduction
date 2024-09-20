@@ -19,8 +19,12 @@ class Campaign(db.Model):
     id            = Column('id', INTEGER(), primary_key=True)
     title         = Column('title', TEXT(), nullable=False)
     active        = Column('active', Boolean(), nullable=False, default=True)
+    goal          = Column('goal', INTEGER(), default=0)
 
-    # donations = db.relationship('Donation', backref='campaign', lazy='dynamic')
+    def get_donations(self):
+        from app.main.models import Donation
+        return Donation.query.filter_by(campaign_id=self.id).all()
+
 
     def __repr__(self) -> str:
         return f"{self.id} - {self.title}"
