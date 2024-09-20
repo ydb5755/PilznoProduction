@@ -75,12 +75,14 @@ def insert_donations():
     donation_table = Table("donation", metadata_obj, autoload_with=engine)
 
     currency_types = ['shekel', 'dollar']
-    
+    boolean_choice = [True, False]
+
     with engine.connect() as conn:
         for _ in range(100):
             conn.execute(donation_table.insert().values(
                 currency_type = currency_types[random.randint(0,1)],
                 amount = random.randint(1,200),
+                anonymous = boolean_choice[random.randint(0,1)],
                 campaign_id=random.randint(1,4),
                 user_id=random.randint(1,9)
             ))
@@ -100,19 +102,23 @@ def insert_campaigns():
                 ))
         conn.commit()
 
+def insert_ambassador_relationships():
+    engine, metadata_obj = engineer()
+    user_table = Table("user", metadata_obj, autoload_with=engine)
+    donation_table = Table("donation", metadata_obj, autoload_with=engine)
+    campaign_table = Table("campaign", metadata_obj, autoload_with=engine)
+
+    with engine.connect() as conn:
+        campaign_ids = conn.execute(select(campaign_table.c.id)).all()
+        user_ids = conn.execute(select(user_table.c.id)).all()
+
+
 def test_selections():
     engine, metadata_obj = engineer()
     user_table = Table("user", metadata_obj, autoload_with=engine)
     donation_table = Table("donation", metadata_obj, autoload_with=engine)
     campaign_table = Table("campaign", metadata_obj, autoload_with=engine)
 
-    for x in range(10):
-        print(random.randrange(1,4))
-    # with engine.connect() as conn:
-    #     campaign_one = conn.execute(select(campaign_table).where(campaign_table.c.id==1)).first()
-    #     donation_one = conn.execute(select(donation_table).where(donation_table.c.id==1)).first()
-    #     user_one = conn.execute(select(user_table).where(user_table.c.id==1)).first()
-    #     print(user_one)
 
 def delete_all():
     engine, metadata_obj = engineer()
