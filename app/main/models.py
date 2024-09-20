@@ -13,11 +13,11 @@ class Donation(db.Model):
     amount        = Column('amount', INTEGER(), nullable=False)
     user_id       = Column('user_id', INTEGER(), nullable=False)
     campaign_id   = Column('campaign_id', INTEGER(), nullable=False)
+    anonymous     = Column('anonymous', Boolean(), default=False)
     
-    # user_id = Column(INTEGER, ForeignKey('user.id'))
-    # campaign_id = Column(INTEGER, ForeignKey('campaign.id'))
-    
+    def get_user(self):
+        from app.users.models import User
+        return User.query.filter_by(id=self.user_id).first()
+
     def __repr__(self) -> str:
         return f"{self.id} - {self.currency_type} - {self.amount}"
-    # campaign      = db.relationship('Campaign', backref='donation', lazy='dynamic')
-    # user          = db.relationship('User', backref='donation', lazy='dynamic')
