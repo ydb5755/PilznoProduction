@@ -20,6 +20,7 @@ class Campaign(db.Model):
     title         = Column('title', TEXT(), nullable=False)
     active        = Column('active', Boolean(), nullable=False, default=True)
     goal          = Column('goal', INTEGER(), default=0)
+    archived      = Column('archived', Boolean(), default=False)
 
     def get_donations(self):
         from app.main.models import Donation

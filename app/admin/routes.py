@@ -13,7 +13,7 @@ import os
 @admin.route('administration')
 def administration():
     users = User.query.all()
-    campaigns = Campaign.query.all()
+    campaigns = Campaign.query.filter_by(archived=False).all()
     return render_template('administration.html',
                            users=users,
                            campaigns=campaigns)
