@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
 {% block title %}Administration{% endblock title %}
+{% block stylesheet %}
+    <link rel="stylesheet" href="{{ url_for('admin.static', filename='administration.css') }}">
+{% endblock stylesheet %}
 {% block content %}
 <main>
     <div class="container my-4 px-5">
@@ -36,6 +39,8 @@
                     <th>#</th>
                     <th>Title</th>
                     <th>Active</th>
+                    <th>Change Active Status</th>
+                    <th>Archive?</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,10 +49,18 @@
                     <td>{{campaign.id}}</td>
                     <td>{{campaign.title}}</td>
                     <td>{{campaign.active}}</td>
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox" {% if campaign.active %}checked{%endif%}>
+                            <span class="slider round"></span>
+                          </label>
+                    </td>
+                    <td><button id="{{campaign.id}}" class="archive-button btn btn-primary">Click to archive</button></td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
 </main>
+<script src="{{url_for('.static', filename='admin.js')}}"></script>
 {% endblock content %}
