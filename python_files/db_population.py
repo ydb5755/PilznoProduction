@@ -105,7 +105,9 @@ def insert_campaigns():
         for title in campaign_titles:
             conn.execute(campaign_table.insert().values(
                 title=title,
-                active=is_active[random.randint(0,1)]
+                active=is_active[random.randint(0,1)],
+                goal=5000, 
+                archived=False
                 ))
         conn.commit()
 
