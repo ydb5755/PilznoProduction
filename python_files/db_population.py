@@ -9,8 +9,15 @@ from werkzeug.security import generate_password_hash
 import random
 
 def engineer():
-    # engine = create_engine('sqlite:////home/yisroel2/Desktop/Pilzno/instance/site.db')
-    engine = create_engine('sqlite:///C:/Users/Lenovo/Desktop/Pilzno/instance/site.db')
+    path1 = 'C:/Users/Lenovo/Desktop/Pilzno/instance/site.db'
+    path2 = '/home/yisroel2/Desktop/Pilzno/instance/site.db'
+    path3 = '/home/ubuntu/PilznoProject/PilznoProduction/instance/site.db'
+
+    for p in [path1, path2, path3]:
+        if os.path.exists(p):
+            path = p
+            break
+    engine = create_engine(f'sqlite:///{path}')
     metadata_obj = MetaData()
     metadata_obj.reflect(bind=engine)
     return engine, metadata_obj
