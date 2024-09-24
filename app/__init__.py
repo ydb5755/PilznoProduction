@@ -48,12 +48,14 @@ def create_app():
     login_manager.login_view = 'users.login'
 
     from app.users import users
+    from app.users.users_api import users_api
     from app.main import main
     from app.campaigns import campaigns
     from app.campaigns.campaign_api import campaign_api
     from app.admin import admin
     
     campaigns.register_blueprint(campaign_api)
+    users.register_blueprint(users_api)
 
     app.register_blueprint(users)
     app.register_blueprint(main)
