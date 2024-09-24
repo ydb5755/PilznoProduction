@@ -53,6 +53,7 @@ def create_app():
     from app.campaigns import campaigns
     from app.campaigns.campaign_api import campaign_api
     from app.admin import admin
+    from app.arba_yesodot import arba_yesodot
     
     campaigns.register_blueprint(campaign_api)
     users.register_blueprint(users_api)
@@ -61,6 +62,7 @@ def create_app():
     app.register_blueprint(main)
     app.register_blueprint(campaigns)
     app.register_blueprint(admin)
+    app.register_blueprint(arba_yesodot)
     
     
     @app.route('/')
