@@ -18,6 +18,7 @@
             <a href="{{url_for('users.user_page', user_id=current_user.id)}}" style="text-decoration: none;"><span class="navbar-brand">User Page</span></a>
             {% if current_user.user_type == 'Admin' %}
                 <a href="{{url_for('admin.administration')}}" style="text-decoration: none;"><span class="navbar-brand">Admin Management</span></a>
+                <a href="{{url_for('admin.archive')}}" style="text-decoration: none;"><span class="navbar-brand">Archive</span></a>
             {% endif %}
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <div class="navbar-nav">

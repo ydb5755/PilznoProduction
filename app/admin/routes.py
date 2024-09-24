@@ -17,3 +17,9 @@ def administration():
     return render_template('administration.html',
                            users=users,
                            campaigns=campaigns)
+
+@admin.route('archive')
+def archive():
+    archived_campaigns = Campaign.query.filter_by(archived=True).all()
+    return render_template('archive.html',
+                           archived_campaigns=archived_campaigns)

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}Archive{% endblock title %}
+{% block stylesheet %}{% endblock stylesheet %}
+{% block content %}
+<main>
+    <div class="container my-4 px-5">
+        <h2 class="text-center">Archived Campaigns</h2>
+        
+        <table class="table table-bordered table-striped custom-table">
+            <thead class="table-dark">
+                <tr>
+                    <th>Title</th>
+                    <th>Goal</th>
+                    <th>Raised</th>
+                    <th>Campaign Link</th>
+                    <th>Unarchive?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for campaign in archived_campaigns %}
+                    <tr id="{{campaign.id}}-row">
+                        <td>{{campaign.title}}</td>
+                        <td>{{campaign.goal}}</td>
+                        <td>{{campaign.get_amount_raised()}}</td>
+                        <td><a href="{{url_for('campaigns.campaign_page', campaign_id=campaign.id)}}">See campaign details</a></td>
+                        <td><button 
+                            id="unarchive-button-{{campaign.id}}" 
+                            value="{{campaign.id}}" 
+                            class="unarchive-button btn btn-primary">Click to un-archive</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</main>
+<script src="{{url_for('.static', filename='archive.js')}}"></script>
+{% endblock content %}
