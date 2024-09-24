@@ -19,20 +19,3 @@ def campaign_page(campaign_id):
     campaign = Campaign.query.filter_by(id=campaign_id).first()
     return render_template('campaign_page.html',
                            campaign=campaign)
-
-@campaigns.route('update_active_status/<id>/<status>', methods=['PUT'])
-def update_active_status(id, status):
-    if status == 'true':
-        status = True
-    else:
-        status = False
-    Campaign.query.filter_by(id=id).update({'active':status})
-    db.session.commit()
-    sleep(1)
-    return {'status':'success'}
-
-@campaigns.route('archive_campaign/<id>', methods=['PUT'])
-def archive_campaign(id):
-    Campaign.query.filter_by(id=id).update({'archived': True, 'active':False})
-    db.session.commit()
-    return {'status':'success'}

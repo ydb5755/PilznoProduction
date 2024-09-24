@@ -28,7 +28,7 @@ function activateActiveStatusCheckboxes(){
 async function updateActiveStatus(id, status) {
     deactivateActiveStatusCheckboxes()
     deactivateArchiveButtons()
-    var result = await fetch(`/campaigns/update_active_status/${id}/${status}`, {method:'PUT'});
+    var result = await fetch(`/campaigns/campaign_api/update_active_status/${id}/${status}`, {method:'PUT'});
     var data = await result.json();
     if (status === true){
         status = 'True'
@@ -44,7 +44,7 @@ async function updateActiveStatus(id, status) {
 async function archiveCampaign(id){
     deactivateActiveStatusCheckboxes()
     deactivateArchiveButtons()
-    var result = await fetch(`/campaigns/archive_campaign/${id}`, {method:'PUT'});
+    var result = await fetch(`/campaigns/campaign_api/archive_campaign/${id}`, {method:'PUT'});
     var data = await result.json();
     document.getElementById(`${id}-row`).remove();
     activateActiveStatusCheckboxes()
