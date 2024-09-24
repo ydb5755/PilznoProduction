@@ -4,6 +4,33 @@
 <main class="container-lg mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
+            <div class="card mb-5">
+                <div class="card-body">
+                    <div class="d-flex justify-content-center align-items-center">
+                        <h2 class="text-center">{{campaign.title}} Ambassadors</h2>
+                        <a href="{{url_for('campaigns.add_ambassador')}}" class="btn btn-primary">Become an ambassador!</a>
+                    </div>
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Name</th>
+                                <th>Goal</th>
+                                <th>Ambassador Page Link</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for campaign_ambassador in campaign.get_ambassadors() %}
+                            <tr>
+                                <td>{{campaign_ambassador.user_id}}</td>
+                                <td>{{campaign_ambassador.goal}}</td>
+                                <td></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
             <div class="card">
                 <div class="card-body">
                     <h2 class="text-center">{{campaign.title}}</h2>
