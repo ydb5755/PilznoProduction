@@ -1,2 +1,56 @@
 {% extends 'base.html' %}
 {% block title %}Add campaign{% endblock title %}
+{% block content %}
+<main class="container-lg mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title">Register</h3>
+                    <form method="post" enctype="multipart/form-data">
+                        {{ form.hidden_tag() }}
+
+                        <div class="mb-3">
+                            {{ form.title.label(class="form-label") }}
+                            {{ form.title(class="form-control") }}
+                            {% if form.title.errors %}
+                                <ul class="errors">
+                                    {% for error in form.title.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            {{ form.active.label(class="form-label") }}
+                            {{ form.active() }}
+                            {% if form.active.errors %}
+                                <ul class="errors">
+                                    {% for error in form.active.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="mb-3">
+                            {{ form.goal.label(class="form-label") }}
+                            {{ form.goal(class="form-control") }}
+                            {% if form.goal.errors %}
+                                <ul class="errors">
+                                    {% for error in form.goal.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        
+                        {{ form.submit(class='btn btn-primary') }}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
