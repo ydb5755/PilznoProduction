@@ -22,3 +22,9 @@ def archive_campaign(id):
     Campaign.query.filter_by(id=id).update({'archived': True, 'active':False})
     db.session.commit()
     return {'status':'success'}
+
+@campaign_api.route('un_archive_campaign/<id>', methods=['PUT'])
+def un_archive_campaign(id):
+    Campaign.query.filter_by(id=id).update({'archived': False, 'active':False})
+    db.session.commit()
+    return {'status':'success'}
