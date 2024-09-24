@@ -30,3 +30,7 @@ def campaign_page(campaign_id):
     campaign = Campaign.query.filter_by(id=campaign_id).first()
     return render_template('campaign_page.html',
                            campaign=campaign)
+
+@campaigns.route('add_ambassador')
+def add_ambassador():
+    return render_template('add_ambassador.html')
