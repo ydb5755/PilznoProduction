@@ -1,7 +1,7 @@
 from app import db
 from flask import current_app
 from flask_login import UserMixin, current_user
-from sqlalchemy import TEXT, Column, Boolean, ForeignKey, TEXT, INTEGER, VARCHAR
+from sqlalchemy import TEXT, Column, Boolean, ForeignKey, TEXT, INTEGER, VARCHAR, select
 import jwt
 from datetime import datetime, timezone, timedelta
 
@@ -15,7 +15,9 @@ class User(db.Model, UserMixin):
     password   = Column('password', TEXT(), nullable=False)
     user_type  = Column('user_type', TEXT(), nullable=False)
 
-
+    def get_donations(self):
+        from app.main.models import Donation
+        return db.session.execute(select(Donation.currency_type,Donation.amount).where(Donation.user_id == self.id)).all()
     
     def __repr__(self) -> str:
         return f"{self.first_name} {self.last_name}"

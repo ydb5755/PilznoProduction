@@ -19,8 +19,10 @@ def user_page(user_id):
     if not int(current_user.id) == int(user_id):
         return redirect(url_for('main.homepage'))
     user = User.query.filter_by(id=user_id).first()
+    donations = user.get_donations()
     return render_template('user_page.html',
-                           user=user)
+                           user=user,
+                           donations=donations)
 
 
 @users.route('/')
