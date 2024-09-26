@@ -69,16 +69,3 @@ def register_user():
             flash('Succesfully Registered!')
             return redirect(url_for('main.homepage'))
     return render_template('register_user.html', form=form)
-
-@users.route('/test')
-def testing_route():
-    user     = User.query.filter_by(id=1).first()
-    donation = Donation.query.filter_by(id=1).first()
-    campaign = Campaign.query.filter_by(id=1).first()
-
-    print(campaign)
-
-    return render_template('test.html', 
-                           user=user,
-                           donation=donation,
-                           campaign=campaign)
